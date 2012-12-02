@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="ISO-8859-1">
+		<title>The Source</title>
+		<style type="text/css">
+			@import url('../../css/main.css');
+		</style>
+	</head>
+	<body>
+		<form id="form" action="../menus/actualizar_menu" method="post">
+			<input type="hidden" name="id_men" value="$me.id_men" readonly="readonly">
+			<fieldset><h3>.:: Modificar Menú ::.</h3></fieldset>
+			<fieldset>
+				<ol>
+					<li>
+						<label for="nom">Nombre</label>
+						<input type="text" id="nom" name="nombre" value="$me.nombre">
+					</li>
+				</ol>
+			</fieldset>
+			<fieldset>
+				<input type="submit" value="Aceptar">
+				<input type="button" value="Cancelar" onclick="location.href='../menus/gestion_menus'">
+			</fieldset>
+		</form>
+	</body>
+</html>

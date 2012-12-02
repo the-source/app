@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="iso-8859-1">
+		<title>THE SOURCE</title>
+		<style type="text/css">
+            @import url('../../css/main.css');
+            @import url('../../css/theme/base/jquery.ui.all.css');
+        </style>
+        <script type="text/javascript" src="../../js/jquery-1.8.2.js"></script>
+        <script type="text/javascript" src="../../js/ui/jquery.dataTables.js"></script>
+        <script type="text/javascript" src="../../js/custom_paginator.js"></script>
+	</head>
+	<body>
+		<h1>.:: Gestión de Roles ::.</h1>
+		<table id="paginador">
+			<thead>
+				<tr>
+					<th colspan="6">
+						<a href="../roles/adicionar_rol"><i class="icon-plus"></i>Adicionar Rol</a>
+					</th>
+				</tr>
+				<tr>
+					<th>Nombre</th>
+					<th>No. Menus</th>
+					<th>No. Usuarios</th>
+					<th>Asig. Menús</th>
+					<th>Modificar</th>
+					<th>Eliminar</th>
+				</tr>
+			</thead>
+			<tbody>
+				#foreach($rol in $roles)
+				<tr>
+					<td>$rol.nombre</td>
+					<td>$rol.menus.size()</td>
+					<td>$rol.usuarios.size()</td>
+					<td>
+						<a href="../roles/asignar_menus?id_rol=$rol.id_rol">
+							<i class="icon-plus-sign"></i>
+						</a>
+					</td>
+					<td>
+						<a href="../roles/modificar_rol?id_rol=$rol.id_rol">
+							<i class="icon-pencil"></i>
+						</a>
+					</td>
+					<td>
+						<a href="../roles/eliminar_rol?id_rol=$rol.id_rol">
+							<i class="icon-trash"></i>
+						</a>
+					</td>
+				</tr>
+				#end
+			</tbody>
+		</table>
+	</body>
+</html>

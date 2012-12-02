@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="ISO-8859-1">
+		<title>The Source</title>
+		<style type="text/css">
+			@import url('../../css/main.css');
+		</style>
+		<script type="text/javascript" src="../../js/jquery-1.8.2.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				var hora_ini = "<label>Hora de Inicio</label>"
+				+"<input type='text' name='hora_ini' placeholder='ej. HH:mm:ss' required='required'>";
+				var f_ini = "<label>Fecha de Inicio</label>"
+					+"<input type='text' name='fecha_ini' placeholder='ej. AAAA-mm-dd' required='required'>";
+				if($('#tipo').val()==1){
+					$('#hora_ini').html(hora_ini);
+					$('#f_ini').html(f_ini);
+					$.get(
+							'../eventos/topicos',
+							'tipo='+1,
+							function(response){
+								var info = "<label>Tópico</label><select name='id_top'>";
+								$.each(response, function(i, rs){
+									info += "<option value='"+rs.id_top+"'>"+rs.nombre+"</option>"
+								});
+								info += "</select>"
+								$('#topico').html(info);
+							}
+						);
+				}
+				$('#tipo').change(function(){
+					$.get(
+						'../eventos/topicos',
+						'tipo='+$(this).val(),
+						function(response){
+							var info = "<label>Tópico</label><select name='id_top'>";
+							$.each(response, function(i, rs){
+								info += "<option value='"+rs.id_top+"'>"+rs.nombre+"</option>"
+							});
+							info += "</select>"
+							$('#topico').html(info);
+						}
+					);
+					if($(this).val()==1){
+						$('#hora_ini').html(hora_ini);
+						$('#f_ini').html(f_ini);
+					}
+					else{
+						$('#hora_ini').html('');
+						$('#f_ini').html('');
+					}
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<form id="form" action="../eventos/guardar_evento" method="post">
+			<fieldset><h3>.:: Añadir Evento ::.</h3></fieldset>
+			<fieldset>
+				<ol>
+					<li>
+						<label>Tipo de Evento</label>
+						<select id="tipo">
+							<option value="1">Positiva</option>
+							<option value="0">Negativa</option>
+						</select>
+					</li>
+					<li id="topico">
+						<!--
+						<label>Tópico</label>
+						<select name="id_top">
+							#foreach($tp in $topicos)
+							<option value="$tp.id_top">$tp.nombre</option>
+							#end
+						</select>
+						-->
+					</li>
+					<li>
+						<label>Descripción</label>
+						<textarea name="descrip"></textarea>
+					</li>
+					<li id="hora_ini"></li>
+					<li id="f_ini"></li>
+				</ol>
+			</fieldset>
+			<fieldset>
+				<input type="submit" value="Aceptar">
+				<input type="button" value="Cancelar" onclick="location.href='../eventos/gestion_eventos'">
+			</fieldset>
+		</form>
+	</body>
+</html>

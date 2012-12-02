@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="ISO-8859-1">
+		<title>The Source</title>
+		<style type="text/css">
+			@import url('../../css/main.css');
+		</style>
+	</head>
+	<body>
+		<form id="form" action="../urls/guardar_url" method="post">
+			<fieldset><h3>.:: Añadir Url ::.</h3></fieldset>
+			<fieldset>
+				<ol>
+					<li>
+						<label for="nom">Nombre</label>
+						<input type="text" id="nom" name="nombre">
+					</li>
+					<li>
+						<label for="enl">Enlace</label>
+						<textarea rows="2" cols="1" id="enl" name="enlace"></textarea>
+					</li>
+				</ol>
+			</fieldset>
+			<fieldset>
+				<input type="submit" value="Aceptar">
+				<input type="button" value="Cancelar" onclick="location.href='../urls/gestion_urls'">
+			</fieldset>
+		</form>
+	</body>
+</html>

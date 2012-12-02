@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="iso-8859-1">
+		<title>THE SOURCE</title>
+		<style type="text/css">
+            @import url('../../css/main.css');
+            @import url('../../css/theme/base/jquery.ui.all.css');
+        </style>
+        <script type="text/javascript" src="../../js/jquery-1.8.2.js"></script>
+        <script type="text/javascript" src="../../js/ui/jquery.dataTables.js"></script>
+        <script type="text/javascript" src="../../js/custom_paginator.js"></script>
+	</head>
+	<body>
+		<h1>.:: Gestión de Usuarios ::.</h1>
+		<table id="paginador">
+			<thead>
+				<tr>
+					<th colspan="5">
+						<a href="../usuarios/adicionar_usuario"><i class="icon-plus"></i>Adicionar Usuario</a>
+					</th>
+				</tr>
+				<tr>
+					<th>CI</th>
+					<th>Nombres y Apellidos</th>
+					<th>Tipo de Usuario</th>
+					<th>Modificar</th>
+					<th>Eliminar</th>
+				</tr>
+			</thead>
+			<tbody>
+				#foreach($us in $usuarios)
+				<tr>
+					<td>#if($us.ci!=0) $us.ci #end</td>
+					<td>$us</td>
+					<td>$!{us.rol.nombre}</td>
+					<td>
+						<a href="../usuarios/modificar_usuario?id_us=$us.id_us">
+							<i class="icon-pencil"></i>
+						</a>
+					</td>
+					<td>
+						<a href="../usuarios/eliminar_usuario?id_us=$us.id_us">
+							<i class="icon-trash"></i>
+						</a>
+					</td>
+				</tr>
+				#end
+			</tbody>
+		</table>
+	</body>
+</html>

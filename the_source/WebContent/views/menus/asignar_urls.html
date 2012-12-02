@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="ISO-8859-1">
+		<title>Hotel</title>
+		<style type="text/css">
+			@import url('../../css/main.css');
+		</style>
+	</head>
+	<body>
+		<form id="form" action="../menus/guardar_urls" method="post">
+			<fieldset><h3>.:: Asignar Urls a $me.nombre ::.</h3></fieldset>
+			<fieldset>
+				<input type="hidden" name="id_men" value="$me.id_men">
+				<ol>
+					#foreach($url in $me.urls)
+					<li>
+						<label>$url.nombre</label>
+						<input type="checkbox" name="id_url" value="$url.id_url" checked="checked">
+					</li>
+					#end
+					#foreach($url in $urls)
+					<li>
+						<label>$url.nombre</label>
+						<input type="checkbox" name="id_url" value="$url.id_url">
+					</li>
+					#end
+				</ol>
+			</fieldset>
+			<fieldset>
+				<input type="submit" value="Aceptar">
+				<input type="button" value="Cancelar" onclick="location.href='../menus/gestion_menus'">
+			</fieldset>
+		</form>
+	</body>
+</html>

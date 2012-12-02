@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="iso-8859-1">
+        <title>The Source</title>
+        <style type="text/css">
+            @import url('../../css/main.css');
+            @import url('../../css/index.css');
+            @import url('../../css/theme/base/jquery.ui.all.css');
+        </style>
+        <script type="text/javascript" src="../../js/jquery-1.8.2.js"></script>
+        <script type="text/javascript" src="../../js/ui/jquery.ui.core.js"></script>
+        <script type="text/javascript" src="../../js/ui/jquery.ui.widget.js"></script>
+        <script type="text/javascript" src="../../js/ui/jquery.ui.accordion.js"></script>
+        <script type="text/javascript" src="../../js/ui/jquery.ui.position.js"></script>
+        <script type="text/javascript" src="../../js/ui/jquery.ui.mouse.js"></script>
+        <script type="text/javascript" src="../../js/ui/jquery.ui.draggable.js"></script>
+        <script type="text/javascript" src="../../js/ui/jquery.ui.dialog.js"></script>
+        <script type="text/javascript" src="../../js/ui/jquery.ui.datepicker.js"></script>
+		<script type="text/javascript" src="../../js/ui/i18n/jquery.ui.datepicker-es.js"></script>
+		<script type="text/javascript" src="../../js/date_and_hour.js"></script>
+        <script type="text/javascript">
+            $(function(){
+                $('#menu').accordion({
+                    autoHeight: false,
+                    collapsible: true
+                });
+                $('#f_nac').datepicker({
+					changeMonth: true,
+					changeYear: true,
+					minDate: '-85Y',
+					maxDate: '-15Y',
+					dateFormat: 'yy-mm-dd'
+				});
+                $('#start_session, #create_account').dialog({
+                    autoOpen:false,
+                    modal:true,
+                    show:"blind",
+                    hide:"explode"
+                });
+                $('#start').click(function(){
+                    $('#start_session').dialog('open');
+                });
+                $('#new_user').click(function(){
+                    $('#create_account').dialog('open');
+                });
+                $('#rol').change(function(){
+					if($(this).val()==4){
+						//alert($(this).val());
+						$('#ci_field').remove();
+						$('#ap_field').remove();
+						$('#am_field').remove();
+					}
+				});
+            
+                $.get(
+    					'../eventos/eventos',
+       					'id_eve=',
+       					function(response){
+    	   					var links="";
+    	   					$.each(response, function(i, rs){
+    							links += "<a id='punto' href=\"default_map?id_eve="+rs.id_eve+"&ver=1"+"\" target=\"content\" >"+rs.descrip+"</a>";
+    						});
+    						$('#aside').html(links);
+       					}
+    				);
+                
+            });
+            
+            
+            
+    		        
+    
+			
+        </script>
+    </head>
+    <body>
+        <div id="main_box">
+            <header>
+                <div id="hdr-left">
+                    <h3>
+                        <a id="start">
+                            <i class="icon-play"></i>
+                            Iniciar Sesión
+                        </a>
+                    </h3>
+                </div>
+                <div id="hdr-central">
+                    <h1>THE SOURCE</h1>
+                </div>
+                <div id="hdr-right">
+                    <h3>
+                        <a id="new_user">
+                            <i class="icon-user"></i>
+                            Crear Cuenta
+                        </a>
+                    </h3>
+                </div>
+                <div id="time_rep"></div>
+            </header>
+            <section>
+            	<nav id="menu"></nav>
+                <article>
+                    <div id="start_session">
+                        <p>Inicie Sesión</p>
+                        <form action="../main/validate" method="post">
+                            <fieldset>
+                                <label><i class="icon-user"></i>Usuario:</label>
+                                <input type="text" name="nombre_us" required="required"><br>
+                                <label><i class="icon-lock"></i>Contraseña:</label>
+                                <input type="password" name="clave_us" required="required"><br>
+                            </fieldset>
+                            <hr>
+                            <fieldset>
+                                <input type="submit" value="Iniciar">
+                            </fieldset>
+                        </form>
+                    </div>
+                    <div id="create_account">
+                        <p>Crear Cuenta</p>
+                        <form action="../main/create_account" method="post" enctype="multipart/form-data">
+                            <fieldset>
+                            	<li>
+									<label for="rol">Tipo de Usuario</label>
+									<select name="id_rol" id="rol">
+										<option value="3">Socio</option>
+										<option value="4">Institución</option>
+									</select>
+								</li>
+                                <li>
+									<label for="nombre_us">Nombre de Usuario</label>
+									<input type="text" id="nombre_us" name="nombre_us" required="required">
+								</li>
+								<li>
+									<label for="clave_us">Contraseña</label>
+									<input type="password" id="clave_us" name="clave_us" required="required">
+								</li>
+								<li id="ci_field">
+									<label for="ci">CI</label>
+									<input type="text" id="ci" name="ci" required="required">
+								</li>
+								<li>
+									<label for="nom">Nombre</label>
+									<input type="text" id="nom" name="nombre" required="required">
+								</li>
+								<li id="ap_field">
+									<label for="ap">Apellido Paterno</label>
+									<input type="text" id="ap" name="ap" required="required">
+								</li>
+								<li id="am_field">
+									<label for="am">Apellido Materno</label>
+									<input type="text" id="am" name="am">
+								</li>
+								<li>
+									<label for="telf">Teléfono</label>
+									<input type="text" id="telf" name="telf" required="required">
+								</li>
+								<li>
+									<label for="direcc">Dirección</label>
+									<textarea id="direcc" name="direcc"></textarea>
+								</li>
+								<li>
+									<label for="file">Foto</label>
+									<input type="file" id="file" name="file">
+								</li>
+                            </fieldset>
+                            <hr>
+                            <fieldset>
+                                <input type="submit" value="Guardar">
+                            </fieldset>
+                        </form>
+                    </div>
+                    <iframe id="content" name="content" scrolling="0" src="../main/default_map"></iframe>
+                </article>
+                <aside id="aside">
+                
+                </aside>
+            </section>
+            <footer></footer>
+        </div>
+    </body>
+</html>

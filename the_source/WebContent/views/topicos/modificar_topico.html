@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="ISO-8859-1">
+		<title>The Source</title>
+		<style type="text/css">
+			@import url('../../css/main.css');
+		</style>
+	</head>
+	<body>
+		<form id="form" action="../topicos/actualizar_topico" method="post">
+			<input type="hidden" name="id_top" value="$tp.id_top" readonly="readonly">
+			<fieldset><h3>.:: Modificar Tópico ::.</h3></fieldset>
+			<fieldset>
+				<ol>
+					<li>
+						<label for="nom">Nombre</label>
+						<input type="text" id="nom" name="nombre" value="$tp.nombre">
+					</li>
+					<li>
+						<label for="enl">Tipo</label>
+						<select name="tipo">
+							<option value="true" #if($tp.tipo=='true') selected="selected" #end>Positivo</option>
+							<option value="false" #if($tp.tipo=='false') selected="selected" #end>Negativo</option>
+						</select>
+					</li>
+				</ol>
+			</fieldset>
+			<fieldset>
+				<input type="submit" value="Aceptar">
+				<input type="button" value="Cancelar" onclick="location.href='../topicos/gestion_topicos'">
+			</fieldset>
+		</form>
+	</body>
+</html>

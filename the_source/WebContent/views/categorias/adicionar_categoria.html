@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="ISO-8859-1">
+		<title>The Source</title>
+		<style type="text/css">
+			@import url('../../css/main.css');
+		</style>
+	</head>
+	<body>
+		<form id="form" action="../categorias/guardar_categoria" method="post">
+			<fieldset><h3>.:: Añadir Categoría ::.</h3></fieldset>
+			<fieldset>
+				<ol>
+					<li>
+						<label for="nom">Nombre</label>
+						<input type="text" id="nom" name="nombre" required="required">
+					</li>
+				</ol>
+			</fieldset>
+			<fieldset>
+				<input type="submit" value="Aceptar">
+				<input type="button" value="Cancelar" onclick="location.href='../categorias/gestion_categorias'">
+			</fieldset>
+		</form>
+	</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="ISO-8859-1">
+		<title>Hotel</title>
+		<style type="text/css">
+			@import url('../../css/main.css');
+		</style>
+	</head>
+	<body>
+		<form id="form" action="../roles/guardar_menus" method="post">
+			<fieldset><h3>.:: Asignar Menús a $rol.nombre ::.</h3></fieldset>
+			<fieldset>
+				<input type="hidden" name="id_rol" value="$rol.id_rol">
+				<ol>
+					#foreach($me in $rol.menus)
+					<li>
+						<label>$me.nombre</label>
+						<input type="checkbox" name="id_men" value="$me.id_men" checked="checked">
+					</li>
+					#end
+					#foreach($me in $menus)
+					<li>
+						<label>$me.nombre</label>
+						<input type="checkbox" name="id_men" value="$me.id_men">
+					</li>
+					#end
+				</ol>
+			</fieldset>
+			<fieldset>
+				<input type="submit" value="Aceptar">
+				<input type="button" value="Cancelar" onclick="location.href='../roles/gestion_roles'">
+			</fieldset>
+		</form>
+	</body>
+</html>

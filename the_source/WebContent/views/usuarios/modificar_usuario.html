@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="ISO-8859-1">
+		<title>The Source</title>
+		<style type="text/css">
+			@import url('../../css/main.css');
+		</style>
+		<script type="text/javascript" src="../../js/jquery-1.8.2.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				if($('#rol').val()==4){
+					$('#ci_field').remove();
+					$('#ap_field').remove();
+					$('#am_field').remove();
+				}
+				$('#rol').change(function(){
+					if($(this).val()==4){
+						//alert($(this).val());
+						$('#ci_field').remove();
+						$('#ap_field').remove();
+						$('#am_field').remove();
+					}
+					else{
+						$('#ci_field').show();
+						$('#ap_field').show();
+						$('#am_field').show();
+					}
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<form id="form" action="../usuarios/actualizar_usuario" method="post" enctype="multipart/form-data">
+			<input type="hidden" name="id_us" value="$us.id_us" readonly="readonly">
+			<fieldset><h3>.:: Modificar Usuario ::.</h3></fieldset>
+			<fieldset>
+				<ol>
+					<li>
+						<label for="rol">Tipo de Usuario</label>
+						<select id="rol" name="id_rol">
+							#foreach($rol in $roles)
+							<option value="$rol.id_rol" #if($us.id_rol==$rol.id_rol) selected="selected" #end><font>$rol.nombre</font></option>
+							#end
+						</select>
+					</li>
+					<li>
+						<label for="nombre_us">Nombre de Usuario</label>
+						<input type="text" id="nombre_us" name="nombre_us" value="$us.nombre_us">
+					</li>
+					<li>
+						<label for="clave_us">Contraseña</label>
+						<input type="password" id="clave_us" name="clave_us" value="$us.clave_us">
+					</li>
+					<li id="ci_field">
+						<label for="ci">CI</label>
+						<input type="text" id="ci" name="ci" #if($us.ci!=0) value="$!{us.ci}" else value="" #end>
+					</li>
+					<li>
+						<label for="nom">Nombre</label>
+						<input type="text" id="nom" name="nombre" value="$!{us.nombre}">
+					</li>
+					<li id="ap_field">
+						<label for="ap">Apellido Paterno</label>
+						<input type="text" id="ap" name="ap" value="$!{us.ap}">
+					</li>
+					<li id="am_field">
+						<label for="am">Apellido Materno</label>
+						<input type="text" id="am" name="am" value="$!{us.am}">
+					</li>
+					<li>
+						<label for="telf">Teléfono</label>
+						<input type="text" id="telf" name="telf" #if($us.telf!=0) value="$!{us.telf}" else value="" #end>
+					</li>
+					<li>
+						<label for="direcc">Dirección</label>
+						<textarea id="direcc" name="direcc">$!{us.direcc}</textarea>
+					</li>
+					#if($us.foto)
+					<li>
+						<label for="foto">Foto Actual</label>
+						<img src="../../images/users_photo/$us.foto" height="48px">
+						<input type="hidden" name="foto" value="$us.foto" readonly="readonly">
+					</li>
+					#end
+					<li>
+						<label for="file">Nueva Foto</label>
+						<input type="file" id="file" name="file">
+					</li>
+				</ol>
+			</fieldset>
+			<fieldset>
+				<input type="submit" value="Aceptar">
+				<input type="button" value="Cancelar" onclick="location.href='../usuarios/gestion_usuarios'">
+			</fieldset>
+		</form>
+	</body>
+</html>

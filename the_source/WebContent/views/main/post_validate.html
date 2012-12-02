@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="iso-8859-1">
+        <title>The Source</title>
+        <style type="text/css">
+            @import url('../../css/main.css');
+            @import url('../../css/index.css');
+            @import url('../../css/theme/base/jquery.ui.all.css');
+        </style>
+        <script type="text/javascript" src="../../js/jquery-1.8.2.js"></script>
+        <script type="text/javascript" src="../../js/ui/jquery.ui.core.js"></script>
+        <script type="text/javascript" src="../../js/ui/jquery.ui.widget.js"></script>
+        <script type="text/javascript" src="../../js/ui/jquery.ui.accordion.js"></script>
+        <script type="text/javascript" src="../../js/date_and_hour.js"></script>
+        <script type="text/javascript" src="../../js/jquery.cookie.js"></script>
+        <script type="text/javascript">
+            $(function(){
+                $('#menu').accordion({
+                    autoHeight: false,
+                    collapsible: true
+                });
+                $('#punto').click(function(){
+                	var x=""; var y = "";
+                	$.cookie('x', "", { expires: 1, path: '/' });
+                	$.cookie('y', "", { expires: 1, path: '/' });
+                });
+                $('#save_point').click(function(){
+                	var x=$.cookie('x'); var y=$.cookie('y');
+                	var id_eve=$.cookie('id_eve');
+                	alert(id_eve);
+                	$.post(
+                		'../main/add_point',
+                		'x='+x+'&y='+y+'&id_eve='+id_eve
+                	);
+                	$.cookie('x', "", { expires: -1, path: '/' });
+                	$.cookie('y', "", { expires: -1, path: '/' });
+                });
+                if($('#tipo').val()==1){
+   					$.get(
+						'../eventos/topicos',
+						'tipo='+1,
+						function(response){
+							var info;
+   							$.each(response, function(i, rs){
+   								info += "<option value='"+rs.id_top+"'>"+rs.nombre+"</option>"
+   							});
+   							info += ""
+   							$('#id_top').html(info);
+   						}
+					);
+ 				}
+   				$('#tipo').change(function(){
+   					$.get(
+   						'../eventos/topicos',
+   						'tipo='+$(this).val(),
+   						function(response){
+   							var info;
+   							$.each(response, function(i, rs){
+   								info += "<option value='"+rs.id_top+"'>"+rs.nombre+"</option>"
+   							});
+   							info += ""
+   							$('#id_top').html(info);
+   						}
+   					);
+   				});
+   				
+   				$('#id_top').change(function(){
+   					$.get(
+ 						'../eventos/eventosbyt',
+ 	   					'id_top='+$(this).val(),
+ 	   					function(response){
+	   	   					var links="";
+	   	   					$.each(response, function(i, rs){
+	   							links += "<a id='punto' href=\"default_map?id_eve="+rs.id_eve+"\" target=\"content\" >"+rs.descrip+"</a>";
+	   						});
+	   						$('#eventos').html(links);
+  	   					}
+  					);
+   				});	
+   			});
+        </script>
+    </head>
+    <body>
+        <div id="main_box">
+            <header>
+                <div id="hdr-left" #if($user.foto) style="background-image: url('../../images/users_photo/$user.foto')" #end>
+                	<h5>$user</h5>
+                </div>
+                <div id="hdr-central">
+                    <h1>THE SOURCE</h1>
+                </div>
+                <div id="hdr-right">
+                    <h5>
+                        <a href="../main/logout">
+                            <i class="icon-off"></i>
+                            Salir
+                        </a>
+                    </h5>
+                </div>
+                <div id="time_rep"></div>
+            </header>
+            <section>
+                <nav id="menu">
+               		#foreach($me in $rol.menus)
+					<h3>
+						<a href="#" title="$!{me.descripcion}">
+							<font>$me.nombre</font>
+						</a>
+					</h3>
+					<div>
+						#foreach($url in $me.urls)
+						<p>
+							<a href="$url.enlace" title="$!{url.descripcion}" target="content">
+								<font>$url.nombre</font>
+							</a>
+						</p>
+						#end
+					</div>
+					#end
+                </nav>
+                <article>
+                    <iframe id="content" name="content" scrolling="0" src="../main/default_map"></iframe>
+                </article>
+                <aside>
+                	<ol>
+						<li>
+							<label>Tipo de Evento</label>
+							<select id="tipo">
+								<option value="1">Positiva</option>
+								<option value="0">Negativa</option>
+							</select>
+						</li>
+						<li id="topico"><label>Tópico</label><select name="id_top" id="id_top"></select></li>
+						<li id="eventos"></li>
+						<li>
+							<input type="button" id="save_point" value='Guardar'>
+						</li>
+					</ol>
+                </aside>
+            </section>
+            <footer></footer>
+        </div>
+    </body>
+</html>

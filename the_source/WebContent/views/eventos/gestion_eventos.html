@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="iso-8859-1">
+		<title>THE SOURCE</title>
+		<style type="text/css">
+            @import url('../../css/main.css');
+            @import url('../../css/theme/base/jquery.ui.all.css');
+        </style>
+        <script type="text/javascript" src="../../js/jquery-1.8.2.js"></script>
+        <script type="text/javascript" src="../../js/ui/jquery.dataTables.js"></script>
+        <script type="text/javascript" src="../../js/custom_paginator.js"></script>
+	</head>
+	<body>
+		<h1>.:: Gestión de Eventos ::.</h1>
+		<table id="paginador">
+			<thead>
+				<tr>
+					<th colspan="5">
+						<a href="../eventos/adicionar_evento"><i class="icon-plus"></i>Adicionar Evento</a>
+					</th>
+				</tr>
+				<tr>
+					<th>Hora Reg.</th>
+					<th>Fecha Reg.</th>
+					<th>Descripción</th>
+					<th>Usuario</th>
+					<th>Eliminar</th>
+				</tr>
+			</thead>
+			<tbody>
+				#foreach($ev in $eventos)
+				<tr>
+					<td>$ev.reg_hora</td>
+					<td>$ev.reg_fecha</td>
+					<td>$ev.descrip</td>
+					<td>$!{ev.usuario}</td>
+					<!--
+					<td>
+						<a href="../eventos/modificar_evento?id_eve=$ev.id_eve">
+							<i class="icon-pencil"></i>
+						</a>
+					</td>
+					-->
+					<td>
+						<a href="../eventos/eliminar_evento?id_eve=$ev.id_eve">
+							<i class="icon-trash"></i>
+						</a>
+					</td>
+				</tr>
+				#end
+			</tbody>
+		</table>
+	</body>
+</html>
